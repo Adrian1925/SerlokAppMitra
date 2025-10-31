@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:serlok_mitra/presentation/auth/login_page.dart';
-import 'presentation/splash/page/splash.dart';
+import 'presentation/page/splash/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
+        fontFamily: 'PlusJakartaSans', 
       ),
       home: const SplashScreen(),
     );

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:serlok_mitra/core/constants/app_colors.dart';
+import 'package:serlok_mitra/presentation/page/main_page.dart';
 
-import '../../core/utility/dialog_helper.dart';
+import '../../../core/utility/dialog_helper.dart';
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -139,7 +140,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   onPressed: () {
-                    // TODO: Arahkan ke halaman berikutnya
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const MainTabPage())
+                    );
                   },
                   child: const Text(
                     'Masuk',

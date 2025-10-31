@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app_colors.dart';
-import '../../core/utility/dialog_helper.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../core/utility/dialog_helper.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

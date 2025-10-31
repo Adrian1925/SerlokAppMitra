@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:serlok_mitra/presentation/auth/login_page.dart';
+import 'package:serlok_mitra/presentation/page/auth/login_page.dart';
 import 'dart:async';
 
 import '../../../core/constants/app_colors.dart';
