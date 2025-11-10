@@ -48,11 +48,15 @@ class WalletPage extends StatelessWidget {
                 },
               ),
 
-              const WalletTopupOption(
+              WalletTopupOption(
                 iconPath: 'assets/icons/virtualacc.png',
                 title: 'Virtual Account / QRIS',
                 subtitle: 'Proses instant. Biaya admin Rp 2500',
+                onTap: () {
+                  Navigator.pushNamed(context, '/wallet-virtual-account');
+                },
               ),
+
               const WalletTopupOption(
                 iconPath: 'assets/icons/hubungics.png',
                 title: 'Hubungi Customer Service',

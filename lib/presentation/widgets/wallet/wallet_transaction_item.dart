@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:serlok_mitra/core/constants/app_colors.dart';
 import 'package:serlok_mitra/core/constants/app_text_styles.dart';
+import 'package:serlok_mitra/core/utility/rupiah_formatter.dart';
 
 class WalletTransactionItem extends StatelessWidget {
   final String title;
@@ -16,22 +17,6 @@ class WalletTransactionItem extends StatelessWidget {
     this.isIncoming = false,
   });
 
-  String _formatRupiah(int value) {
-    final str = value.abs().toString();
-    final buffer = StringBuffer();
-    int count = 0;
-
-    for (int i = str.length - 1; i >= 0; i--) {
-      buffer.write(str[i]);
-      count++;
-      if (count == 3 && i != 0) {
-        buffer.write('.');
-        count = 0;
-      }
-    }
-    return buffer.toString().split('').reversed.join('');
-  }
-
   @override
   Widget build(BuildContext context) {
     final bool positive = isIncoming || amount > 0;
@@ -40,6 +25,7 @@ class WalletTransactionItem extends StatelessWidget {
         ? Icons.arrow_upward
         : Icons.arrow_downward;
     final String sign = positive ? '+' : '-';
+    final int displayAmount = amount.abs();
 
     return Column(
       children: [
@@ -66,7 +52,7 @@ class WalletTransactionItem extends StatelessWidget {
             ),
           ),
           trailing: Text(
-            '$sign${_formatRupiah(amount)}',
+            '$sign${formatRupiah(displayAmount)}',
             style: AppTextStyles.semi12.copyWith(color: accentColor),
           ),
         ),

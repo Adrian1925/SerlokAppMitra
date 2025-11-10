@@ -6,33 +6,27 @@ import '../../../core/constants/app_text_styles.dart';
 import '../../widgets/wallet/wallet_topup_info_card.dart';
 import '../../widgets/wallet/wallet_primary_button.dart';
 
-class WalletBankTransferPage extends StatefulWidget {
-  const WalletBankTransferPage({super.key});
+class WalletVirtualAccountPage extends StatefulWidget {
+  const WalletVirtualAccountPage({super.key});
 
   @override
-  State<WalletBankTransferPage> createState() => _WalletBankTransferPageState();
+  State<WalletVirtualAccountPage> createState() =>
+      _WalletVirtualAccountPageState();
 }
 
-class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
+class _WalletVirtualAccountPageState extends State<WalletVirtualAccountPage> {
   final TextEditingController _controller = TextEditingController();
+
   bool get _isValid =>
       int.tryParse(_controller.text.replaceAll('.', '')) != null &&
       int.parse(_controller.text.replaceAll('.', '')) >= 10000;
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
-    assert(
-      args != null && args is Map<String, dynamic>,
-      'Bank data must be provided!',
-    );
-
-    final bankArgs = args as Map<String, dynamic>;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Bank Transfer', style: AppTextStyles.semi18),
+        title: const Text('Virtual Account', style: AppTextStyles.semi18),
         centerTitle: true,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -44,9 +38,9 @@ class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const WalletTopupInfoCard(
-              iconPath: 'assets/icons/bank.png',
-              title: 'Bank Transfer',
-              subtitle: 'Tanpa biaya admin, proses sekitar 30–60 menit',
+              iconPath: 'assets/icons/virtualacc.png',
+              title: 'Virtual Account / QRIS',
+              subtitle: 'Proses instant. Biaya admin Rp 2500',
             ),
             const Divider(
               height: 1,
@@ -54,10 +48,11 @@ class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
               thickness: 1,
             ),
             const SizedBox(height: 28),
+
             Text('Ketikkan nominal topup', style: AppTextStyles.semi14),
             const SizedBox(height: 8),
 
-            // Input nominal
+            // input nominal
             TextField(
               controller: _controller,
               keyboardType: TextInputType.number,
@@ -101,7 +96,6 @@ class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
 
             const SizedBox(height: 10),
 
-            // info minimal saldo
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -118,7 +112,6 @@ class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
             ),
             const SizedBox(height: 36),
 
-            // tombol next
             WalletPrimaryButton(
               text: 'Selanjutnya',
               enabled: _isValid,
@@ -129,11 +122,8 @@ class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
                       final raw = _controller.text.replaceAll('.', '');
                       final amount = int.tryParse(raw) ?? 0;
 
-                      Navigator.pushNamed(
-                        context,
-                        '/wallet-bank-confirm',
-                        arguments: {...bankArgs, 'amount': amount},
-                      );
+                      // TODO: sambungkan ke Midtrans / halaman VA berikutnya
+                      debugPrint('VA topup amount: $amount');
                     }
                   : null,
             ),

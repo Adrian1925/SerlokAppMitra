@@ -1,27 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:serlok_mitra/core/utility/rupiah_formatter.dart';
 import 'package:serlok_mitra/presentation/widgets/wallet/wallet_primary_button.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 
 class WalletBankConfirmPage extends StatelessWidget {
   const WalletBankConfirmPage({super.key});
-
-  String _formatRupiah(int value) {
-    final str = value.toString();
-    final buffer = StringBuffer();
-    int count = 0;
-
-    for (int i = str.length - 1; i >= 0; i--) {
-      buffer.write(str[i]);
-      count++;
-      if (count == 3 && i != 0) {
-        buffer.write('.');
-        count = 0;
-      }
-    }
-    return buffer.toString().split('').reversed.join('');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +114,7 @@ class WalletBankConfirmPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Rp ${_formatRupiah(amount)}',
+                    'Rp ${formatRupiah(amount)}',
                     style: AppTextStyles.semi18.copyWith(
                       color: AppColors.textProfileOption,
                     ),
