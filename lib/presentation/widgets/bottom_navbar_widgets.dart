@@ -92,7 +92,7 @@ class CustomBottomNav extends StatelessWidget {
               _NavItem(
                 icon: FontAwesomeIcons.road,
                 label: 'Sewa Aktif',
-                index: 0,
+                index: 1,
                 selectedIndex: selectedIndex,
                 onTap: onItemTapped,
               ),
@@ -100,7 +100,7 @@ class CustomBottomNav extends StatelessWidget {
               _NavItem(
                 icon: Icons.list_alt_outlined,
                 label: 'Riwayat',
-                index: 1,
+                index: 2,
                 selectedIndex: selectedIndex,
                 onTap: onItemTapped,
               ),
@@ -108,7 +108,7 @@ class CustomBottomNav extends StatelessWidget {
               _NavItem(
                 icon: selectedIndex == 2 ? Icons.person : Icons.person_outline,
                 label: 'Profil',
-                index: 2,
+                index: 3,
                 selectedIndex: selectedIndex,
                 onTap: onItemTapped,
               ),
