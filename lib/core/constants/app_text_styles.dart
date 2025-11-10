@@ -77,6 +77,13 @@ class AppTextStyles {
     fontFamily: _font,
   );
 
+  static const medium18 = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textProfileOption,
+    fontFamily: _font,
+  );
+
   static const semi12 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w600,

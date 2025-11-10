@@ -18,10 +18,11 @@ class AppColors {
   static const Color textGrayScale60 = Color(0xff9CA4AB);
   static const Color textGrayScale70 = Color(0xff78828A);
   static const Color textProgress = Color(0xff4A5568);
+  static const Color greyBackground = Color(0xffF1F5F9);
 
   static const Color textHistoryLocation = Color(0xff66707A);
 
-  static const Color dividerGray = Color(0xffE9EBED);
+  static const Color dividerGray = Color(0xfff3f3f3);
 
   static const Color textProfileOption = Color(0xff131313);
 

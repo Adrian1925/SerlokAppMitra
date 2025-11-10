@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:serlok_mitra/core/constants/app_colors.dart';
 import 'package:serlok_mitra/core/constants/app_text_styles.dart';
+import 'package:serlok_mitra/core/utility/rupiah_formatter.dart';
 
 class WalletBalanceHeader extends StatelessWidget {
   final int balance;
@@ -13,22 +14,6 @@ class WalletBalanceHeader extends StatelessWidget {
     required this.lastUpdatedText,
     this.onBackPressed,
   });
-
-  String _formatRupiah(int value) {
-    final str = value.toString();
-    final buffer = StringBuffer();
-    int count = 0;
-
-    for (int i = str.length - 1; i >= 0; i--) {
-      buffer.write(str[i]);
-      count++;
-      if (count == 3 && i != 0) {
-        buffer.write('.');
-        count = 0;
-      }
-    }
-    return buffer.toString().split('').reversed.join('');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +65,7 @@ class WalletBalanceHeader extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Rp ${_formatRupiah(balance)}',
+                  'Rp ${formatRupiah(balance)}', // ✅ pakai util
                   style: AppTextStyles.bold28.copyWith(color: AppColors.white),
                 ),
                 const SizedBox(height: 4),

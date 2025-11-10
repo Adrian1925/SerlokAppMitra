@@ -39,16 +39,24 @@ class WalletPage extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              const WalletTopupOption(
+              WalletTopupOption(
                 iconPath: 'assets/icons/bank.png',
                 title: 'Bank Transfer',
                 subtitle: 'Tanpa biaya admin, proses sekitar 30–60 menit',
+                onTap: () {
+                  Navigator.pushNamed(context, '/wallet-bank-select');
+                },
               ),
-              const WalletTopupOption(
+
+              WalletTopupOption(
                 iconPath: 'assets/icons/virtualacc.png',
                 title: 'Virtual Account / QRIS',
                 subtitle: 'Proses instant. Biaya admin Rp 2500',
+                onTap: () {
+                  Navigator.pushNamed(context, '/wallet-virtual-account');
+                },
               ),
+
               const WalletTopupOption(
                 iconPath: 'assets/icons/hubungics.png',
                 title: 'Hubungi Customer Service',
