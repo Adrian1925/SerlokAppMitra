@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'PlusJakartaSans',
       ),
       onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: '/wallet',
+      initialRoute: '/home-page',
     );
   }
 }
