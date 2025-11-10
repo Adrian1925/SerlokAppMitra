@@ -11,7 +11,7 @@ import 'package:serlok_mitra/presentation/page/wallet/wallet_virtual_account_pag
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
+      case '/home-page':
         return MaterialPageRoute(builder: (_) => const HomePage());
 
       case '/wallet':

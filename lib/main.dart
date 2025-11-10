@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'presentation/page/splash/splash.dart';
 import 'package:serlok_mitra/core/router/app_router.dart';
 
 void main() {
@@ -18,8 +19,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'PlusJakartaSans',
       ),
+      home: const SplashScreen(),
       onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: '/home-page',
     );
   }
 }
