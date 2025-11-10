@@ -6,7 +6,9 @@ class AppColors {
   static const Color onboardingBg = Color(0xff5ECC62);
   static const Color secondary = Color(0xff191333);
   static const Color yellow = Color(0xffF4D696);
+  static const Color brown = Color(0xff605529);
   static const Color red = Color(0xffF49698);
+  static const Color green = Color(0xff32D34B);
 
   static const Color strongRed = Color(0xffB12A2C);
   static const Color strongBlue = Color(0xff4074AD);
