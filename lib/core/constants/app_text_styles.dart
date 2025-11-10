@@ -6,6 +6,13 @@ class AppTextStyles {
   static const String _font = 'PlusJakartaSans';
 
   // Belum konsisten untuk penamaan dan template-nya (menyesuaikan figma saja)
+  static const regular11 = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+    color: AppColors.textProfileOption,
+    fontFamily: _font,
+  );
+
   static const regular12 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
@@ -125,6 +132,13 @@ class AppTextStyles {
 
   static const bold24 = TextStyle(
     fontSize: 24,
+    fontWeight: FontWeight.w700,
+    color: AppColors.secondary,
+    fontFamily: _font,
+  );
+
+  static const bold28 = TextStyle(
+    fontSize: 28,
     fontWeight: FontWeight.w700,
     color: AppColors.secondary,
     fontFamily: _font,

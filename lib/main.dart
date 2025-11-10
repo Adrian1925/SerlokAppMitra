@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:serlok_mitra/presentation/page/wallet/wallet_page.dart';
 import 'presentation/page/splash/splash.dart';
 
 void main() {
@@ -16,9 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
-        fontFamily: 'PlusJakartaSans', 
+        fontFamily: 'PlusJakartaSans',
       ),
-      home: const SplashScreen(),
+      home: const WalletPage(),
     );
   }
 }
