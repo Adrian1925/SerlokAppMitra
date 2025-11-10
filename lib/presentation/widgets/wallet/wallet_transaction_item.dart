@@ -41,29 +41,45 @@ class WalletTransactionItem extends StatelessWidget {
         : Icons.arrow_downward;
     final String sign = positive ? '+' : '-';
 
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      leading: CircleAvatar(
-        radius: 18,
-        backgroundColor: accentColor.withOpacity(0.12),
-        child: Icon(iconData, color: accentColor, size: 18),
-      ),
-      title: Text(
-        title,
-        style: AppTextStyles.regular12.copyWith(
-          color: AppColors.textProfileOption,
+    return Column(
+      children: [
+        ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 4,
+          ),
+          leading: CircleAvatar(
+            radius: 18,
+            backgroundColor: accentColor.withOpacity(0.12),
+            child: Icon(iconData, color: accentColor, size: 18),
+          ),
+          title: Text(
+            title,
+            style: AppTextStyles.regular12.copyWith(
+              color: AppColors.textProfileOption,
+            ),
+          ),
+          subtitle: Text(
+            dateTimeText,
+            style: AppTextStyles.regular11.copyWith(
+              color: AppColors.textHistoryLocation,
+            ),
+          ),
+          trailing: Text(
+            '$sign${_formatRupiah(amount)}',
+            style: AppTextStyles.semi12.copyWith(color: accentColor),
+          ),
         ),
-      ),
-      subtitle: Text(
-        dateTimeText,
-        style: AppTextStyles.regular11.copyWith(
-          color: AppColors.textHistoryLocation,
+
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: const Divider(
+            height: 1,
+            color: AppColors.dividerGray,
+            thickness: 1,
+          ),
         ),
-      ),
-      trailing: Text(
-        '$sign${_formatRupiah(amount)}',
-        style: AppTextStyles.semi12.copyWith(color: accentColor),
-      ),
+      ],
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:serlok_mitra/core/constants/app_colors.dart';
-import 'package:serlok_mitra/core/constants/app_text_styles.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_text_styles.dart';
 
 class WalletTopupOption extends StatelessWidget {
   final String iconPath;
@@ -18,36 +18,39 @@ class WalletTopupOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      leading: CircleAvatar(
-        radius: 22,
-        backgroundColor: AppColors.grey.withOpacity(0.25),
-        child: Image.asset(
-          iconPath,
-          width: 26,
-          height: 26,
-          fit: BoxFit.contain,
+    return Column(
+      children: [
+        ListTile(
+          onTap: onTap,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 6,
+          ),
+          leading: CircleAvatar(
+            backgroundColor: AppColors.grey.withOpacity(0.2),
+            radius: 22,
+            child: Image.asset(iconPath, width: 26),
+          ),
+          title: Text(
+            title,
+            style: AppTextStyles.semi15.copyWith(
+              color: AppColors.textProfileOption,
+            ),
+          ),
+          subtitle: Text(
+            subtitle,
+            style: AppTextStyles.regular13.copyWith(
+              color: AppColors.textGrayScale70,
+            ),
+          ),
+          trailing: const Icon(
+            Icons.arrow_forward_ios_rounded,
+            size: 16,
+            color: AppColors.textGrayScale70,
+          ),
         ),
-      ),
-      title: Text(
-        title,
-        style: AppTextStyles.semi15.copyWith(
-          color: AppColors.textProfileOption,
-        ),
-      ),
-      subtitle: Text(
-        subtitle,
-        style: AppTextStyles.regular12.copyWith(
-          color: AppColors.textGrayScale70,
-        ),
-      ),
-      trailing: const Icon(
-        Icons.arrow_forward_ios_rounded,
-        size: 16,
-        color: AppColors.textGrayScale70,
-      ),
+        const Divider(height: 1, color: AppColors.dividerGray, thickness: 1),
+      ],
     );
   }
 }

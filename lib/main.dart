@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:serlok_mitra/presentation/page/wallet/wallet_page.dart';
-import 'presentation/page/splash/splash.dart';
+import 'package:serlok_mitra/core/router/app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +18,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'PlusJakartaSans',
       ),
-      home: const WalletPage(),
+      onGenerateRoute: AppRouter.generateRoute, // <== ini penting
+      initialRoute: '/wallet',
     );
   }
 }
