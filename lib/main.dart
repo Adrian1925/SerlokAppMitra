@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'PlusJakartaSans',
       ),
-      onGenerateRoute: AppRouter.generateRoute, // <== ini penting
+      onGenerateRoute: AppRouter.generateRoute,
       initialRoute: '/wallet',
     );
   }

@@ -24,14 +24,19 @@ class _MainTabPageState extends State<MainTabPage> {
         index: _selectedIndex,
         children: pages,
       ),
+      // Floating button hanya aktif di HomePage
       floatingActionButton: FloatingButtonWidgets(
-         onTab: () => BottomNavRouter.goToHome(setState, (i) => _selectedIndex = i),
+        onTab: () =>
+            BottomNavRouter.goToHome(setState, (i) => _selectedIndex = i),
         selectedIndex: _selectedIndex == 0,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      // Bottom navigation aktif hanya untuk index > 0
       bottomNavigationBar: CustomBottomNav(
-        selectedIndex: _selectedIndex > 0 ? _selectedIndex - 1 : -1, 
-        onItemTapped: (index) => BottomNavRouter.onTabSelected(index, setState, (i) => _selectedIndex = i),
+        selectedIndex: _selectedIndex == 0 ? -1 : 0,
+        onItemTapped: (index) => BottomNavRouter.onTabSelected(
+            index + 1, setState, (i) => _selectedIndex = i),
       ),
     );
   }
