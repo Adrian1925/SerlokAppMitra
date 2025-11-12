@@ -5,12 +5,13 @@ import 'package:serlok_mitra/presentation/page/wallet/wallet_bank_select_page.da
 import 'package:serlok_mitra/presentation/page/wallet/wallet_page.dart';
 import 'package:serlok_mitra/presentation/page/home/home_page.dart';
 import 'package:serlok_mitra/presentation/page/auth/login_page.dart';
+import 'package:serlok_mitra/presentation/page/wallet/wallet_va_webview_page.dart';
 import 'package:serlok_mitra/presentation/page/wallet/wallet_virtual_account_page.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
+      case '/home-page':
         return MaterialPageRoute(builder: (_) => const HomePage());
 
       case '/wallet':
@@ -38,6 +39,12 @@ class AppRouter {
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => const WalletVirtualAccountPage(),
+        );
+
+      case '/wallet-va-webview':
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const WalletVaWebviewPage(),
         );
 
       case '/login':

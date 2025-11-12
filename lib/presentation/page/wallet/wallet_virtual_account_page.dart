@@ -110,6 +110,7 @@ class _WalletVirtualAccountPageState extends State<WalletVirtualAccountPage> {
                 ),
               ),
             ),
+
             const SizedBox(height: 36),
 
             WalletPrimaryButton(
@@ -122,8 +123,8 @@ class _WalletVirtualAccountPageState extends State<WalletVirtualAccountPage> {
                       final raw = _controller.text.replaceAll('.', '');
                       final amount = int.tryParse(raw) ?? 0;
 
-                      // TODO: sambungkan ke Midtrans / halaman VA berikutnya
-                      debugPrint('VA topup amount: $amount');
+                      // TODO: nanti kirim amount ke backend untuk bikin paymentUrl, skrg cukup ke webview yg redirect google
+                      Navigator.pushNamed(context, '/wallet-va-webview');
                     }
                   : null,
             ),

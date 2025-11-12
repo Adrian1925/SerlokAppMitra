@@ -3,10 +3,7 @@ import 'package:serlok_mitra/presentation/page/home/home_page.dart';
 import '../../presentation/page/vhicle/vhicle_page.dart';
 
 class BottomNavRouter {
-  static List<Widget> pages = [
-    HomePage(),
-    VhiclePage(),
-  ];
+  static List<Widget> pages = [HomePage(), VhiclePage()];
 
   static void onTabSelected(
     int index,
