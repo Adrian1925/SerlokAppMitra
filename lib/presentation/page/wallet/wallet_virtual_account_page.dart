@@ -4,7 +4,7 @@ import 'package:serlok_mitra/core/utility/rupiah_formatter.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../widgets/wallet/wallet_topup_info_card.dart';
-import '../../widgets/wallet/wallet_primary_button.dart';
+import '../../widgets/primary_button.dart';
 
 class WalletVirtualAccountPage extends StatefulWidget {
   const WalletVirtualAccountPage({super.key});
@@ -113,7 +113,7 @@ class _WalletVirtualAccountPageState extends State<WalletVirtualAccountPage> {
 
             const SizedBox(height: 36),
 
-            WalletPrimaryButton(
+            PrimaryButton(
               text: 'Selanjutnya',
               enabled: _isValid,
               onPressed: _isValid

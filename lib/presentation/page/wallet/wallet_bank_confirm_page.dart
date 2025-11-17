@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:serlok_mitra/core/utility/rupiah_formatter.dart';
-import 'package:serlok_mitra/presentation/widgets/wallet/wallet_primary_button.dart';
+import 'package:serlok_mitra/presentation/widgets/primary_button.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 
@@ -204,7 +204,7 @@ class WalletBankConfirmPage extends StatelessWidget {
 
             const Spacer(),
 
-            WalletPrimaryButton(
+            PrimaryButton(
               text: "Saya sudah transfer",
               enabled: true,
               onPressed: () {
