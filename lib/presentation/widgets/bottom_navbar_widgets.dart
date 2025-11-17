@@ -51,7 +51,7 @@ class SmoothHillNotchedShape extends NotchedShape {
 }
 
 class CustomBottomNav extends StatelessWidget {
-  final int selectedIndex;
+  final int selectedIndex; // -1 or 0..3
   final ValueChanged<int> onItemTapped;
 
   const CustomBottomNav({
@@ -62,7 +62,6 @@ class CustomBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Selected Index in BottomNav: $selectedIndex');
     final bw = baseWidth;
     final bh = baseHeight;
 
@@ -106,7 +105,8 @@ class CustomBottomNav extends StatelessWidget {
               ),
               SizedBox(width: 18 * bw / 375),
               _NavItem(
-                icon: selectedIndex == 2 ? Icons.person : Icons.person_outline,
+                // always pass the outline person icon; widget akan render filled saat selected
+                icon: Icons.person_outline,
                 label: 'Profil',
                 index: 3,
                 selectedIndex: selectedIndex,
@@ -124,7 +124,7 @@ class _NavItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final int index;
-  final int selectedIndex;
+  final int selectedIndex; // -1 or 0..3
   final ValueChanged<int> onTap;
 
   const _NavItem({
@@ -139,8 +139,13 @@ class _NavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final bw = baseWidth;
     final bh = baseHeight;
-    final isSelected = selectedIndex == index;
-    final color = isSelected ? AppColors.primary : Colors.white;
+    final bool isSelected = selectedIndex == index;
+    final Color color = isSelected ? AppColors.primary : Colors.white;
+
+    // jika label adalah Profil, gunakan icon filled saat selected
+    final IconData displayedIcon = label == 'Profil'
+        ? (isSelected ? Icons.person : Icons.person_outline)
+        : icon;
 
     return InkWell(
       onTap: () => onTap(index),
@@ -163,7 +168,7 @@ class _NavItem extends StatelessWidget {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Icon(icon, size: 22 * bw / 375, color: color),
+                    Icon(displayedIcon, size: 22 * bw / 375, color: color),
                     if (label == 'Sewa Aktif')
                       Positioned(
                         right: -2,

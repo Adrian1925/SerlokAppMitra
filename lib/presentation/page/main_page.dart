@@ -12,11 +12,14 @@ class MainTabPage extends StatefulWidget {
 }
 
 class _MainTabPageState extends State<MainTabPage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; // 0 = Home, 1 = Vhicle, 2 = SewaActive, 3 = Riwayat, 4 = Profile
 
   @override
   Widget build(BuildContext context) {
     final pages = BottomNavRouter.pages;
+
+    // Nav index untuk BottomNav (BottomNav hanya punya 4 item -> mapping ke pages[1..4])
+    final int navIndex = _selectedIndex > 0 ? _selectedIndex - 1 : -1;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -24,19 +27,23 @@ class _MainTabPageState extends State<MainTabPage> {
         index: _selectedIndex,
         children: pages,
       ),
-      // Floating button hanya aktif di HomePage
       floatingActionButton: FloatingButtonWidgets(
-        onTab: () =>
-            BottomNavRouter.goToHome(setState, (i) => _selectedIndex = i),
+        onTab: () => BottomNavRouter.goToHome(setState, (i) => _selectedIndex = i),
         selectedIndex: _selectedIndex == 0,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-      // Bottom navigation aktif hanya untuk index > 0
       bottomNavigationBar: CustomBottomNav(
-        selectedIndex: _selectedIndex == 0 ? -1 : 0,
-        onItemTapped: (index) => BottomNavRouter.onTabSelected(
-            index + 1, setState, (i) => _selectedIndex = i),
+        // kirimkan navIndex (0..3) atau -1 jika home
+        selectedIndex: navIndex,
+        onItemTapped: (navTappedIndex) {
+          // navTappedIndex adalah 0..3, convert ke page index (1..4)
+          BottomNavRouter.onTabSelected(
+            navTappedIndex + 1,
+            setState,
+            (i) => _selectedIndex = i,
+          );
+        },
       ),
     );
   }
