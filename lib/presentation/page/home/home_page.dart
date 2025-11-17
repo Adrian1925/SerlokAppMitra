@@ -3,6 +3,7 @@ import 'package:serlok_mitra/presentation/page/wallet/wallet_page.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../widgets/vhicle_card.dart';
+import '../incoming_order/incoming_order_detail.dart';
 import '../verification/verification_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -604,7 +606,14 @@ class _OfferSection extends StatelessWidget {
           tipeTrip: "Dalam Kota - Sekali Jalan",
           harga: "3.000.000",
           durasi: "8 hari",
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DetailOrderPage(),
+              ),
+            );
+          },
         ),
         const SizedBox(height: 16),
         _VehicleSection(),

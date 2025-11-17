@@ -25,9 +25,7 @@ class _VhiclePageState extends State<VhiclePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: baseHeight * 0.014),
             _buildAppBar(),
-            SizedBox(height: baseHeight * 0.014),
             Container(
               width: double.infinity,
               height: 1,
@@ -160,31 +158,37 @@ class _VhiclePageState extends State<VhiclePage> {
   }
 
   Widget _buildAppBar() {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MainTabPage()),
-              );
-            },
-            child: Icon(
-              Icons.arrow_back,
-              size: baseWidth * 0.08,
+    return Padding(
+      padding: EdgeInsets.symmetric(
+            horizontal: baseWidth * 0.04,
+            vertical: baseHeight * 0.01,
+          ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MainTabPage()),
+                );
+              },
+              child: Icon(
+                Icons.arrow_back,
+                size: baseWidth * 0.08,
+              ),
             ),
           ),
-        ),
-        Center(
-          child: Text(
-            'Kendaraan Saya',
-            style: AppTextStyles.semi20,
+          Center(
+            child: Text(
+              'Kendaraan Saya',
+              style: AppTextStyles.semi20,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

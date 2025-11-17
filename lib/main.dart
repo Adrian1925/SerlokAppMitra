@@ -19,6 +19,15 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'PlusJakartaSans',
       ),
+      builder: (context, child) {
+        final mediaQuery = MediaQuery.of(context);
+        return MediaQuery(
+          data: mediaQuery.copyWith(
+            textScaleFactor: 1.0,   
+          ),
+          child: child!,
+        );
+      },
       home: const SplashScreen(),
       onGenerateRoute: AppRouter.generateRoute,
     );
