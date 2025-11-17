@@ -33,7 +33,7 @@ class _WalletBankConfirmPageState extends State<WalletBankConfirmPage> {
       final file = File(pickedFile.path);
       final bytes = await file.length();
 
-      const maxSize = 5 * 1024 * 1024; // 5MB
+      const maxSize = 5 * 1024 * 1024;
       if (bytes > maxSize) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(

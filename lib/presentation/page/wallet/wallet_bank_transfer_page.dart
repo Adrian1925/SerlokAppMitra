@@ -92,7 +92,7 @@ class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
                 ),
               ),
               style: _controller.text.isEmpty
-                  ? AppTextStyles.regular13.copyWith(
+                  ? AppTextStyles.regular14.copyWith(
                       color: AppColors.textGrayScale70,
                     )
                   : AppTextStyles.semi15.copyWith(color: Colors.black),

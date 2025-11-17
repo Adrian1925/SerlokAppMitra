@@ -49,7 +49,7 @@ class _WalletVirtualAccountPageState extends State<WalletVirtualAccountPage> {
             ),
             const SizedBox(height: 28),
 
-            Text('Ketikkan nominal topup', style: AppTextStyles.semi14),
+            Text('Ketikkan nominal topup', style: AppTextStyles.semi15),
             const SizedBox(height: 8),
 
             // input nominal
@@ -86,11 +86,11 @@ class _WalletVirtualAccountPageState extends State<WalletVirtualAccountPage> {
                   vertical: 14,
                 ),
               ),
-              style: AppTextStyles.regular12.copyWith(
-                color: _controller.text.isEmpty
-                    ? AppColors.textGrayScale70
-                    : Colors.black,
-              ),
+              style: _controller.text.isEmpty
+                  ? AppTextStyles.regular14.copyWith(
+                      color: AppColors.textGrayScale70,
+                    )
+                  : AppTextStyles.semi15.copyWith(color: Colors.black),
               onChanged: (_) => setState(() {}),
             ),
 

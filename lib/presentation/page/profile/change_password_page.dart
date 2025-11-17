@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:serlok_mitra/presentation/widgets/action_result_dialog.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
@@ -42,9 +41,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   }
 
   bool get _isFormValid {
-    return _oldPasswordController.text.length >= 8 &&
+    return _oldPasswordController.text.isNotEmpty &&
         _newPasswordController.text.length >= 8 &&
-        _confirmPasswordController.text.length >= 8;
+        _confirmPasswordController.text == _newPasswordController.text;
   }
 
   @override
@@ -113,48 +112,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 text: 'Ganti Password',
                 enabled: _isFormValid,
                 onPressed: _isFormValid
-                    ? () async {
-                        if (_newPasswordController.text !=
-                            _confirmPasswordController.text) {
-                          await showActionResultDialog(
-                            context: context,
-                            isSuccess: false,
-                            message: 'Ulangi password baru\ndengan benar!',
-                            buttonText: 'Ulangi',
-                            onAfterClose: () {},
-                          );
-                          return;
-                        }
-
-                        // TODO: panggil API / logic cek password lama
-                        // Contoh dummy
-                        final bool isOldPasswordCorrect =
-                            _oldPasswordController.text == 'passwordlama';
-
-                        if (!isOldPasswordCorrect) {
-                          await showActionResultDialog(
-                            context: context,
-                            isSuccess: false,
-                            message: 'Password lama anda\nsalah',
-                            buttonText: 'Ulangi',
-                            onAfterClose: () {},
-                          );
-                          return;
-                        }
-                        await showActionResultDialog(
-                          context: context,
-                          isSuccess: true,
-                          message: 'Password telah berhasil\ndi ubah',
-                          buttonText: 'Oke',
-                          onAfterClose: () {
-                            Navigator.of(context).pop();
-
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/main-tab',
-                              (route) => false,
-                            );
-                          },
-                        );
+                    ? () {
+                        // TODO: implement ganti password
                       }
                     : null,
               ),
@@ -205,26 +164,17 @@ class _PasswordField extends StatelessWidget {
                 isCollapsed: true,
                 border: InputBorder.none,
                 hintText: hintText,
-
-                hintStyle: controller.text.isEmpty
-                    ? AppTextStyles.semi16.copyWith(
-                        color: Colors.grey.shade400,
-                        fontWeight: FontWeight.w400,
-                      )
-                    : AppTextStyles.regular15.copyWith(
-                        color: Colors.grey.shade400,
-                      ),
+                hintStyle: AppTextStyles.semi16.copyWith(
+                  color: Colors.grey.shade400,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-
-              style: controller.text.isEmpty
-                  ? AppTextStyles.semi16.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400,
-                    )
-                  : AppTextStyles.regular15.copyWith(color: Colors.black),
+              style: AppTextStyles.semi16.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
-
           GestureDetector(
             onTap: onToggleObscure,
             child: Icon(
