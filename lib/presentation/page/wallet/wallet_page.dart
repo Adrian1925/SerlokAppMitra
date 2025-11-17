@@ -32,7 +32,7 @@ class WalletPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Isi Saldo',
-                  style: AppTextStyles.semi14.copyWith(
+                  style: AppTextStyles.semi16.copyWith(
                     color: AppColors.textProfileOption,
                   ),
                 ),
@@ -70,7 +70,7 @@ class WalletPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Transaksi Terakhir',
-                  style: AppTextStyles.semi14.copyWith(
+                  style: AppTextStyles.semi16.copyWith(
                     color: AppColors.textProfileOption,
                   ),
                 ),

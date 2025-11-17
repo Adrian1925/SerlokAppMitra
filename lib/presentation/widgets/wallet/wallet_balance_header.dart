@@ -61,17 +61,17 @@ class WalletBalanceHeader extends StatelessWidget {
               children: [
                 Text(
                   'Saldo Saya',
-                  style: AppTextStyles.semi12.copyWith(color: AppColors.white),
+                  style: AppTextStyles.semi14.copyWith(color: AppColors.white),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Rp ${formatRupiah(balance)}', // ✅ pakai util
-                  style: AppTextStyles.bold28.copyWith(color: AppColors.white),
+                  'Rp ${formatRupiah(balance)}',
+                  style: AppTextStyles.bold30.copyWith(color: AppColors.white),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   lastUpdatedText,
-                  style: AppTextStyles.regular11.copyWith(
+                  style: AppTextStyles.regular13.copyWith(
                     color: AppColors.white.withOpacity(0.7),
                   ),
                 ),

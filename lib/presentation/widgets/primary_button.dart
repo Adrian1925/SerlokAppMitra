@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_text_styles.dart';
+import '../../core/constants/app_colors.dart';
+import '../../core/constants/app_text_styles.dart';
 
-class WalletPrimaryButton extends StatelessWidget {
+class PrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool enabled;
   final Color? backgroundColor;
 
-  const WalletPrimaryButton({
+  const PrimaryButton({
     super.key,
     required this.text,
     required this.enabled,

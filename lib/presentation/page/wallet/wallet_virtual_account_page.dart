@@ -4,7 +4,7 @@ import 'package:serlok_mitra/core/utility/rupiah_formatter.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../widgets/wallet/wallet_topup_info_card.dart';
-import '../../widgets/wallet/wallet_primary_button.dart';
+import '../../widgets/primary_button.dart';
 
 class WalletVirtualAccountPage extends StatefulWidget {
   const WalletVirtualAccountPage({super.key});
@@ -49,7 +49,7 @@ class _WalletVirtualAccountPageState extends State<WalletVirtualAccountPage> {
             ),
             const SizedBox(height: 28),
 
-            Text('Ketikkan nominal topup', style: AppTextStyles.semi14),
+            Text('Ketikkan nominal topup', style: AppTextStyles.semi15),
             const SizedBox(height: 8),
 
             // input nominal
@@ -86,11 +86,11 @@ class _WalletVirtualAccountPageState extends State<WalletVirtualAccountPage> {
                   vertical: 14,
                 ),
               ),
-              style: AppTextStyles.regular12.copyWith(
-                color: _controller.text.isEmpty
-                    ? AppColors.textGrayScale70
-                    : Colors.black,
-              ),
+              style: _controller.text.isEmpty
+                  ? AppTextStyles.regular14.copyWith(
+                      color: AppColors.textGrayScale70,
+                    )
+                  : AppTextStyles.semi15.copyWith(color: Colors.black),
               onChanged: (_) => setState(() {}),
             ),
 
@@ -113,7 +113,7 @@ class _WalletVirtualAccountPageState extends State<WalletVirtualAccountPage> {
 
             const SizedBox(height: 36),
 
-            WalletPrimaryButton(
+            PrimaryButton(
               text: 'Selanjutnya',
               enabled: _isValid,
               onPressed: _isValid

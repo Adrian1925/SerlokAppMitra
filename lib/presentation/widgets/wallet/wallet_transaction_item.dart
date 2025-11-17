@@ -41,19 +41,19 @@ class WalletTransactionItem extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: AppTextStyles.regular12.copyWith(
+            style: AppTextStyles.regular14.copyWith(
               color: AppColors.textProfileOption,
             ),
           ),
           subtitle: Text(
             dateTimeText,
-            style: AppTextStyles.regular11.copyWith(
+            style: AppTextStyles.regular13.copyWith(
               color: AppColors.textHistoryLocation,
             ),
           ),
           trailing: Text(
             '$sign${formatRupiah(displayAmount)}',
-            style: AppTextStyles.semi12.copyWith(color: accentColor),
+            style: AppTextStyles.semi14.copyWith(color: accentColor),
           ),
         ),
 

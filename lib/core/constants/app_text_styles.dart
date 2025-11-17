@@ -93,6 +93,15 @@ class AppTextStyles {
     letterSpacing: 0,
   );
 
+  static const semi13 = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+    fontFamily: _font,
+    height: 1.8,
+    letterSpacing: 0,
+  );
+
   static const semi14 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,

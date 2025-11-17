@@ -3,7 +3,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
-import '../../widgets/wallet/wallet_primary_button.dart';
+import '../../widgets/primary_button.dart';
 
 class WalletVaWebviewPage extends StatefulWidget {
   const WalletVaWebviewPage({super.key});
@@ -60,7 +60,7 @@ class _WalletVaWebviewPageState extends State<WalletVaWebviewPage> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(24),
-          child: WalletPrimaryButton(
+          child: PrimaryButton(
             backgroundColor: AppColors.redAlert,
             text: 'Batalkan Transaksi',
             enabled: true,
