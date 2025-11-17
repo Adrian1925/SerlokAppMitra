@@ -54,7 +54,7 @@ class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
               thickness: 1,
             ),
             const SizedBox(height: 28),
-            Text('Ketikkan nominal topup', style: AppTextStyles.semi14),
+            Text('Ketikkan nominal topup', style: AppTextStyles.semi15),
             const SizedBox(height: 8),
 
             // Input nominal
@@ -67,7 +67,7 @@ class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
               ],
               decoration: InputDecoration(
                 hintText: 'Belum ditentukan',
-                hintStyle: AppTextStyles.regular12.copyWith(
+                hintStyle: AppTextStyles.regular13.copyWith(
                   color: AppColors.textGrayScale70,
                 ),
                 filled: true,
@@ -91,11 +91,11 @@ class _WalletBankTransferPageState extends State<WalletBankTransferPage> {
                   vertical: 14,
                 ),
               ),
-              style: AppTextStyles.regular12.copyWith(
-                color: _controller.text.isEmpty
-                    ? AppColors.textGrayScale70
-                    : Colors.black,
-              ),
+              style: _controller.text.isEmpty
+                  ? AppTextStyles.regular13.copyWith(
+                      color: AppColors.textGrayScale70,
+                    )
+                  : AppTextStyles.semi15.copyWith(color: Colors.black),
               onChanged: (_) => setState(() {}),
             ),
 

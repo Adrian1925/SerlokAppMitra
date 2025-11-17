@@ -37,7 +37,7 @@ class WalletTopupInfoCard extends StatelessWidget {
                 Text(title, style: AppTextStyles.semi15),
                 Text(
                   subtitle,
-                  style: AppTextStyles.regular12.copyWith(
+                  style: AppTextStyles.regular13.copyWith(
                     color: AppColors.textGrayScale70,
                   ),
                 ),

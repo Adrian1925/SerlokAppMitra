@@ -94,7 +94,7 @@ class _WalletBankConfirmPageState extends State<WalletBankConfirmPage> {
           children: [
             Text(
               'Tujuan Transfer',
-              style: AppTextStyles.semi14.copyWith(
+              style: AppTextStyles.semi15.copyWith(
                 color: AppColors.textProfileOption,
               ),
             ),
@@ -179,7 +179,7 @@ class _WalletBankConfirmPageState extends State<WalletBankConfirmPage> {
 
             Text(
               'Bukti Transfer (opsional)',
-              style: AppTextStyles.semi14.copyWith(
+              style: AppTextStyles.semi15.copyWith(
                 color: AppColors.textProfileOption,
               ),
             ),

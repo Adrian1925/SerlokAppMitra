@@ -205,17 +205,26 @@ class _PasswordField extends StatelessWidget {
                 isCollapsed: true,
                 border: InputBorder.none,
                 hintText: hintText,
-                hintStyle: AppTextStyles.semi16.copyWith(
-                  color: Colors.grey.shade400,
-                  fontWeight: FontWeight.w400,
-                ),
+
+                hintStyle: controller.text.isEmpty
+                    ? AppTextStyles.semi16.copyWith(
+                        color: Colors.grey.shade400,
+                        fontWeight: FontWeight.w400,
+                      )
+                    : AppTextStyles.regular15.copyWith(
+                        color: Colors.grey.shade400,
+                      ),
               ),
-              style: AppTextStyles.semi16.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.w400,
-              ),
+
+              style: controller.text.isEmpty
+                  ? AppTextStyles.semi16.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                    )
+                  : AppTextStyles.regular15.copyWith(color: Colors.black),
             ),
           ),
+
           GestureDetector(
             onTap: onToggleObscure,
             child: Icon(

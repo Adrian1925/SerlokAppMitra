@@ -59,13 +59,13 @@ class WalletBankSelectPage extends StatelessWidget {
                 leading: Image.asset(bank['logo']!, width: 50),
                 title: Text(
                   bank['name']!,
-                  style: AppTextStyles.semi14.copyWith(
+                  style: AppTextStyles.semi15.copyWith(
                     color: AppColors.textProfileOption,
                   ),
                 ),
                 subtitle: Text(
                   bank['account']!,
-                  style: AppTextStyles.regular12.copyWith(
+                  style: AppTextStyles.regular13.copyWith(
                     color: AppColors.textGrayScale70,
                   ),
                 ),
