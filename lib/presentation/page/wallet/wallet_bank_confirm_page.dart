@@ -1,12 +1,64 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:serlok_mitra/core/utility/rupiah_formatter.dart';
 import 'package:serlok_mitra/presentation/widgets/primary_button.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 
-class WalletBankConfirmPage extends StatelessWidget {
+class WalletBankConfirmPage extends StatefulWidget {
   const WalletBankConfirmPage({super.key});
+
+  @override
+  State<WalletBankConfirmPage> createState() => _WalletBankConfirmPageState();
+}
+
+class _WalletBankConfirmPageState extends State<WalletBankConfirmPage> {
+  final ImagePicker _picker = ImagePicker();
+  File? _selectedImage;
+
+  Future<void> _pickImage() async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 1500,
+        maxHeight: 1500,
+        imageQuality: 85,
+      );
+
+      if (pickedFile == null) return;
+
+      final file = File(pickedFile.path);
+      final bytes = await file.length();
+
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      if (bytes > maxSize) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Ukuran file maksimal 5MB'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+        return;
+      }
+
+      if (!mounted) return;
+      setState(() {
+        _selectedImage = file;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Gagal memilih gambar'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +185,7 @@ class WalletBankConfirmPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            Container(
+            SizedBox(
               width: double.infinity,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -146,13 +198,23 @@ class WalletBankConfirmPage extends StatelessWidget {
                         color: AppColors.greyBackground,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.image_outlined,
-                          size: 40,
-                          color: AppColors.textGrayScale70,
-                        ),
-                      ),
+                      child: _selectedImage == null
+                          ? const Center(
+                              child: Icon(
+                                Icons.image_outlined,
+                                size: 40,
+                                color: AppColors.textGrayScale70,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.file(
+                                _selectedImage!,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              ),
+                            ),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -171,9 +233,7 @@ class WalletBankConfirmPage extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: OutlinedButton(
-                            onPressed: () {
-                              // TODO: implement picker gambar
-                            },
+                            onPressed: _pickImage,
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(
                                 color: AppColors.primary,
@@ -209,6 +269,7 @@ class WalletBankConfirmPage extends StatelessWidget {
               enabled: true,
               onPressed: () {
                 // TODO: submit konfirmasi transfer
+                // bisa kirim _selectedImage (jika tidak null) ke backend
               },
             ),
 

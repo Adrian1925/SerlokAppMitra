@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:serlok_mitra/presentation/page/main_page.dart';
 import 'package:serlok_mitra/presentation/page/wallet/wallet_bank_confirm_page.dart';
 import 'package:serlok_mitra/presentation/page/wallet/wallet_bank_transfer_page.dart';
 import 'package:serlok_mitra/presentation/page/wallet/wallet_bank_select_page.dart';
@@ -11,6 +12,9 @@ import 'package:serlok_mitra/presentation/page/wallet/wallet_virtual_account_pag
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case '/main-tab':
+        return MaterialPageRoute(builder: (_) => const MainTabPage());
+
       case '/home-page':
         return MaterialPageRoute(builder: (_) => const HomePage());
 
