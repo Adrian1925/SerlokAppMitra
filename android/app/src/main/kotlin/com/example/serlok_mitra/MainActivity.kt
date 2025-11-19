@@ -1,4 +1,4 @@
-package com.example.serlok_mitra
+package com.serlokapp.mitra
 
 import io.flutter.embedding.android.FlutterActivity
 

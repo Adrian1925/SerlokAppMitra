@@ -9,14 +9,18 @@ import 'package:serlok_mitra/presentation/page/auth/login_page.dart';
 import 'package:serlok_mitra/presentation/page/wallet/wallet_va_webview_page.dart';
 import 'package:serlok_mitra/presentation/page/wallet/wallet_virtual_account_page.dart';
 
+import '../../data/service/auth_service.dart';
+import '../../data/service/profile_service.dart';
+import '../../presentation/bloc/auth/auth_bloc.dart';
+import '../../presentation/bloc/profile/profile_bloc.dart';
+import '../../presentation/page/auth/register_page.dart';
+import '../../presentation/page/splash/splash.dart';
+
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/main-tab':
-        return MaterialPageRoute(builder: (_) => const MainTabPage());
-
-      case '/home-page':
-        return MaterialPageRoute(builder: (_) => const HomePage());
+      case '/':
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
 
       case '/wallet':
         return MaterialPageRoute(builder: (_) => const WalletPage());
@@ -50,6 +54,9 @@ class AppRouter {
           settings: settings,
           builder: (_) => const WalletVaWebviewPage(),
         );
+
+      case '/register':
+        return MaterialPageRoute(builder: (_) => const RegisterPage());
 
       case '/login':
         return MaterialPageRoute(builder: (_) => const LoginPage());

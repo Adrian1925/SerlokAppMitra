@@ -1,9 +1,26 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'presentation/page/splash/splash.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:serlok_mitra/firebase_options.dart';
+import 'core/helper/permission_helper.dart';
+import 'data/service/auth_service.dart';
+import 'data/service/profile_service.dart';
+import 'presentation/bloc/auth/auth_bloc.dart';
+import 'presentation/bloc/profile/profile_bloc.dart';
 import 'package:serlok_mitra/core/router/app_router.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'presentation/bloc/profile/profile_event.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  runApp(MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => AuthBloc(AuthService())),
+        BlocProvider(create: (_) => ProfileBloc(ProfileService())..add(FetchProfile())),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,6 +28,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PermissionHelper().ensureLocationPermission();
     return MaterialApp(
       title: 'Serlok Mitra',
       debugShowCheckedModeBanner: false,
@@ -28,7 +46,7 @@ class MyApp extends StatelessWidget {
           child: child!,
         );
       },
-      home: const SplashScreen(),
+      initialRoute: '/',
       onGenerateRoute: AppRouter.generateRoute,
     );
   }

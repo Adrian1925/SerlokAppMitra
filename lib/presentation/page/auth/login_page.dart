@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:serlok_mitra/core/constants/app_colors.dart';
 import 'package:serlok_mitra/presentation/page/main_page.dart';
 
+import '../../../core/helper/device_helper.dart';
 import '../../../core/utility/dialog_helper.dart';
-import 'register_page.dart';
+import '../../../data/model/auth_singup_model.dart';
+import '../../../data/service/profile_service.dart';
+import '../../bloc/auth/auth_bloc.dart';
+import '../../bloc/auth/auth_event.dart';
+import '../../bloc/auth/auth_state.dart';
+import '../../bloc/profile/profile_bloc.dart';
+import '../../bloc/profile/profile_event.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,12 +22,130 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final secureStorage = FlutterSecureStorage();
+  final DeviceHelper _deviceHelper = DeviceHelper();
   bool _obscurePassword = true;
+
+  String imei1 = "";
+  String imei2 = "";
+  String deviceId = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _initDevice();
+  }
+  Future<void> _initDevice() async {
+    await _deviceHelper.initIMEI();
+    imei1 = _deviceHelper.imei1;
+    imei2 = _deviceHelper.imei2;
+    deviceId = _deviceHelper.deviceId;
+    try {
+      final devData = await _deviceHelper.getDeviceData();
+      print("Device data: $devData");
+    } catch (e) {
+      print("Error mendapatkan device data: $e");
+    }
+    setState(() {});
+  }
+
+
+  void _doRegister() {
+    final phone = _phoneController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (phone.isEmpty || password.isEmpty) {
+      showCustomDialog(
+        context: context,
+        type: DialogType.error,
+        title: 'Gagal',
+        message: 'Semua field harus diisi.',
+        buttonText: 'Ok',
+        onPressed: () => Navigator.pop(context),
+      );
+      return;
+    }
+
+    final request = SigninRequest(
+      mobile: phone,
+      password: password,
+      deviceId: _deviceHelper.deviceId,
+      imei1: _deviceHelper.imei1,
+      imei2: _deviceHelper.imei2,
+    );
+
+    context.read<AuthBloc>().add(SigninSubmitted(request));
+  }
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) async {
+          if (state is AuthLoading) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+
+          if (state is AuthinSuccess) {
+            final token = state.data['token'];
+            await secureStorage.write(key: 'token', value: token);
+
+            context.read<ProfileBloc>().add(FetchProfile());
+            try {
+              final deviceData = await _deviceHelper.getDeviceData();
+              print("DeviceData terkirim ke updateLocationApi: $deviceData");
+              final result = await ProfileService().updateLocationApi(deviceData);
+              print("Hasil updateLocationApi: $result");
+            } catch (e) {
+              print("Error kirim device data: $e");
+            }
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
+            showCustomDialog(
+              context: context,
+              type: DialogType.success,
+              title: 'Berhasil!',
+              message: 'Anda berhasil masuk.',
+              buttonText: 'Lanjut',
+              onPressed: () {
+                Navigator.pop(context);
+                // Navigator.pushReplacementNamed(context, '/home-page');
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const MainTabPage()),
+                );
+              },
+            );
+          }
+
+          if (state is AuthinFailure) {
+            Navigator.pop(context); 
+
+            showCustomDialog(
+              context: context,
+              type: DialogType.error,
+              title: 'Error',
+              message: state.error,
+              buttonText: 'Ok',
+              onPressed: () => Navigator.pop(context),
+            );
+          }
+        },
+        child: _buildLoginForm(),
+      ),
+    );
+  }
+  Widget _buildLoginForm() {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -51,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 8),
               TextField(
-                controller: phoneController,
+                controller: _phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Masukkan nomor HP mu',
@@ -79,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 8),
               TextField(
-                controller: passwordController,
+                controller: _passwordController,
                 obscureText: _obscurePassword,
                 decoration: InputDecoration(
                   hintText: 'Masukkan Passwordmu',
@@ -139,12 +266,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const MainTabPage())
-                    );
-                  },
+                  onPressed: _doRegister,
                   child: const Text(
                     'Masuk',
                     style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.w600),
@@ -163,10 +285,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => const RegisterPage())
-                      );
+                      Navigator.pushNamed(context, '/register');
                     },
                     child: const Text(
                       'Daftar Akun Baru',
