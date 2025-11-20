@@ -12,13 +12,12 @@ class MainTabPage extends StatefulWidget {
 }
 
 class _MainTabPageState extends State<MainTabPage> {
-  int _selectedIndex = 0; // 0 = Home, 1 = Vhicle, 2 = SewaActive, 3 = Riwayat, 4 = Profile
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final pages = BottomNavRouter.pages;
 
-    // Nav index untuk BottomNav (BottomNav hanya punya 4 item -> mapping ke pages[1..4])
     final int navIndex = _selectedIndex > 0 ? _selectedIndex - 1 : -1;
 
     return Scaffold(
@@ -34,10 +33,8 @@ class _MainTabPageState extends State<MainTabPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       bottomNavigationBar: CustomBottomNav(
-        // kirimkan navIndex (0..3) atau -1 jika home
         selectedIndex: navIndex,
         onItemTapped: (navTappedIndex) {
-          // navTappedIndex adalah 0..3, convert ke page index (1..4)
           BottomNavRouter.onTabSelected(
             navTappedIndex + 1,
             setState,

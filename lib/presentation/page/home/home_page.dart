@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:serlok_mitra/presentation/page/wallet/wallet_page.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../bloc/profile/profile_bloc.dart';
+import '../../bloc/profile/profile_state.dart';
 import '../../widgets/vhicle_card.dart';
 import '../incoming_order/incoming_order_detail.dart';
 import '../verification/verification_page.dart';
@@ -39,51 +43,75 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
+  return BlocBuilder<ProfileBloc, ProfileState>(
+    builder: (context, state) {
+      if (state is ProfileLoading) {
+        return const CircularProgressIndicator();
+      }
+
+      if (state is ProfileLoaded) {
+        final user = state.profile;
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const CircleAvatar(
-              radius: 24,
-              backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=3'),
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text('Aditya Eka',
-                    style:
-                        AppTextStyles.semi16.copyWith(color: AppColors.black)),
-                Text('Rp 0',
-                    style: AppTextStyles.semi14.copyWith(
-                        color: AppColors.black, fontWeight: FontWeight.bold)),
+                ProfilePicture(
+                    name: user.name,
+                    radius: 24,
+                    img: user.picture,
+                    fontsize: 16,
+                  ),
+                const SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user.name,
+                      style: AppTextStyles.semi16.copyWith(
+                        color: AppColors.black,
+                      ),
+                    ),
+                    Text(
+                      "Rp ${user.walletBalance}",
+                      style: AppTextStyles.semi14.copyWith(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-        TextButton(
-          onPressed: () async {
-            final selected = await showMenu<String>(
-              context: context,
-              position: RelativeRect.fromLTRB(100, 80, 16, 0),
-              items: options
-                  .map((e) => PopupMenuItem(value: e, child: Text(e)))
-                  .toList(),
-            );
-            if (selected != null) setState(() => condition = selected);
-          },
-          child: Text(
-            'ISI SALDO',
-            style: AppTextStyles.semi14.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.bold,
+
+            TextButton(
+              onPressed: () async {
+                final selected = await showMenu<String>(
+                  context: context,
+                  position: RelativeRect.fromLTRB(100, 80, 16, 0),
+                  items: options
+                      .map((e) => PopupMenuItem(value: e, child: Text(e)))
+                      .toList(),
+                );
+                if (selected != null) setState(() => condition = selected);
+              },
+              child: Text(
+                'ISI SALDO',
+                style: AppTextStyles.semi14.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-        ),
-      ],
-    );
-  }
+          ],
+        );
+      }
+      return const Text("Gagal memuat profil");
+    },
+  );
+}
+
 
   Widget _buildContentByCondition(BuildContext context) {
     switch (condition) {

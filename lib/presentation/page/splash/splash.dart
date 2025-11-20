@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:serlok_mitra/presentation/page/auth/login_page.dart';
 import 'dart:async';
 
 import '../../../core/constants/app_colors.dart';
@@ -13,9 +12,11 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
+  
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -40,32 +41,17 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(_createRoute());
+    _timer = Timer(const Duration(seconds: 3), () {
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
     });
-  }
-
-  Route _createRoute() {
-    return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 600),
-      pageBuilder: (_, __, ___) => const LoginPage(),
-      transitionsBuilder: (_, animation, __, child) {
-        final fade = Tween<double>(begin: 0, end: 1).animate(animation);
-        final slide =
-            Tween<Offset>(begin: const Offset(0, 0.08), end: Offset.zero)
-                .animate(animation);
-
-        return FadeTransition(
-          opacity: fade,
-          child: SlideTransition(position: slide, child: child),
-        );
-      },
-    );
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _timer?.cancel(); // penting agar tidak leak!
     super.dispose();
   }
 
@@ -85,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen>
                   'assets/images/icon.png',
                   width: 80,
                   color: AppColors.primary,
-                  colorBlendMode: BlendMode.srcIn, 
+                  colorBlendMode: BlendMode.srcIn,
                 ),
                 const SizedBox(width: 12),
                 Image.asset(

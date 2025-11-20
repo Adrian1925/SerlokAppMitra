@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "172571543645",
+    "project_id": "serlok-app-customer",
+    "storage_bucket": "serlok-app-customer.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172571543645:android:3ccddefc2066f73a8925b4",
+        "android_client_info": {
+          "package_name": "com.serlokapp.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172571543645-n00a73vv0e1ho5unudninqp7699jcvte.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.serlokapp.customer",
+            "certificate_hash": "5075ac99b9de7b08dbde2cc517913a93d3c18edc"
+          }
+        },
+        {
+          "client_id": "172571543645-njjim1quhaklinhtkqvnd79tg4ujqlgv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.serlokapp.customer",
+            "certificate_hash": "2cb4756730d2a16f4fa6d898cbee29bc2cb86f97"
+          }
+        },
+        {
+          "client_id": "172571543645-r32fvnge69eqndrsiprep167d6u70d56.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB9tBFad3hVmxaxqPHLCjyoevUYExOmLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172571543645-r32fvnge69eqndrsiprep167d6u70d56.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "172571543645-bpb4dp95dvlm64pokdambms7nkfmq61s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.serlokapp.customer"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172571543645:android:cf865c38f1d2f43a8925b4",
+        "android_client_info": {
+          "package_name": "com.serlokapp.mitra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172571543645-r32fvnge69eqndrsiprep167d6u70d56.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB9tBFad3hVmxaxqPHLCjyoevUYExOmLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172571543645-r32fvnge69eqndrsiprep167d6u70d56.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "172571543645-bpb4dp95dvlm64pokdambms7nkfmq61s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.serlokapp.customer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
