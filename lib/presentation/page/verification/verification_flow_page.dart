@@ -43,12 +43,6 @@ class _VerificationFlowPageState extends State<VerificationFlowPage> {
     }
   }
 
-  void sendData() {
-    // TODO: Implementasi pengiriman data
-    print('Data telah dikirim!');
-    Navigator.pop(context); 
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

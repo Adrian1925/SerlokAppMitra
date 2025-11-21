@@ -49,6 +49,7 @@ dependencies:
   firebase_core: ^4.2.1
   firebase_messaging: ^16.0.4
   geolocator: ^14.0.2
+  cloud_firestore: ^6.1.0
 
 flutter_native_splash:
   image: assets/images/logo.png

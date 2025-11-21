@@ -8,8 +8,8 @@ import 'data/service/profile_service.dart';
 import 'presentation/bloc/auth/auth_bloc.dart';
 import 'presentation/bloc/profile/profile_bloc.dart';
 import 'package:serlok_mitra/core/router/app_router.dart';
-
 import 'presentation/bloc/profile/profile_event.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
@@ -22,7 +22,6 @@ Future<void> main() async {
     ),
   );
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

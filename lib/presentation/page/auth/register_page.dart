@@ -1,10 +1,6 @@
 import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_device_imei/flutter_device_imei.dart';
-
 import '../../../core/constants/app_colors.dart';
 import '../../../core/helper/device_helper.dart';
 import '../../../core/utility/dialog_helper.dart';

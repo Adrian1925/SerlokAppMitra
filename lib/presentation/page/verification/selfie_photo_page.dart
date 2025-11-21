@@ -12,7 +12,7 @@ import '../../widgets/profile_action_button.dart';
 
 class SelfiePhotoPage extends StatefulWidget {
   final VoidCallback? nextStep;
-  const SelfiePhotoPage({Key? key, this.nextStep}) : super(key: key);
+  const SelfiePhotoPage({super.key, this.nextStep});
 
   @override
   State<SelfiePhotoPage> createState() => _SelfiePhotoPageState();
@@ -125,7 +125,8 @@ class _SelfiePhotoPageState extends State<SelfiePhotoPage> {
                       return Image.file(_capturedPhoto!);
                     } else if (_cameraController!.value.isInitialized) {
                       return CameraPreview(_cameraController!);
-                    } else return Container(
+                    } else {
+                      return Container(
                         color: AppColors.textGrayScale60,
                         child: const Center(
                           child: Text(
@@ -134,6 +135,7 @@ class _SelfiePhotoPageState extends State<SelfiePhotoPage> {
                           ),
                         ),
                       );
+                    }
                   }(),
                 ),
               ),
@@ -171,7 +173,7 @@ class _SelfiePhotoPageState extends State<SelfiePhotoPage> {
                             text: Text('Lanjutkan', style: AppTextStyles.semi16),
                             onPressed: () async {
                               await _cameraController?.dispose();
-                  
+                              
                               context.read<UpgradeAccountBloc>().add(
                                 SaveSelfiePhoto(_capturedPhoto!),
                               );
