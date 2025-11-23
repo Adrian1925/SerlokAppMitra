@@ -12,7 +12,7 @@ import '../../widgets/profile_action_button.dart';
 
 class IdentityPhotoPage extends StatefulWidget {
   final VoidCallback? nextStep;
-  const IdentityPhotoPage({Key? key, this.nextStep}) : super(key: key);
+  const IdentityPhotoPage({super.key, this.nextStep});
 
   @override
   State<IdentityPhotoPage> createState() => _IdentityPhotoPageState();
@@ -130,7 +130,7 @@ class _IdentityPhotoPageState extends State<IdentityPhotoPage> {
                             return Image.file(_capturedPhoto!);
                           } else if (_cameraController!.value.isInitialized) {
                             return CameraPreview(_cameraController!);
-                          } else
+                          } else{
                             return Container(
                               color: AppColors.textGrayScale60,
                               child: const Center(
@@ -140,6 +140,7 @@ class _IdentityPhotoPageState extends State<IdentityPhotoPage> {
                                 ),
                               ),
                             );
+                          }
                         }(),
                       ),
                     ),

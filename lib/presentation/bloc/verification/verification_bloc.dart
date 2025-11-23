@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-
+import '../../../data/service/profile_service.dart';
 part 'verification_event.dart';
 part 'verification_state.dart';
 
@@ -44,27 +44,26 @@ class UpgradeAccountBloc
       emit(updatedState.copyWith(isSubmitting: true, error: null));
 
       try {
-        // Cek data
-        // TODO: Hapus pengecekan data ini nanti
-        print('Mengirim data:');
-        print('Data Selfie: ${state.selfiePhoto?.path}');
-        print('Data KTP: ${state.identityPhoto?.path}');
-        print('Data Alamat: ${state.address}');
-
-        // Contoh simulasi submit data
-        await Future.delayed(const Duration(seconds: 3));
-        emit(state.copyWith(isSubmitting: false, isSuccess: true));
-
-        // Reset data agar data tidk menumpuk
+        final profileService = ProfileService();
+        print("Mengupload selfie...");
+        final selfieRes = await profileService.uploadSelfie(updatedState.selfiePhoto!);
+        print("Selfie result: $selfieRes");
+        print("Mengupload KTP...");
+        final ktpRes = await profileService.uploadKtp(updatedState.identityPhoto!);
+        print("KTP result: $ktpRes");
+        print("Mengupdate alamat...");
+        final addressRes = await profileService.uploadAddress(updatedState.address!);
+        print("Address result: $addressRes");
+        emit(updatedState.copyWith(isSubmitting: false, isSuccess: true));
+        print("Sukses mengirim data verifikasi!");
         emit(UpgradeAccountState.initial());
-
-        // TODO: Hapus pengecekan data ini nanti
-        print('Data terhapus:');
-        print('Data Selfie: ${state.selfiePhoto?.path}');
-        print('Data KTP: ${state.identityPhoto?.path}');
-        print('Data Alamat: ${state.address}');
       } catch (e) {
-        emit(state.copyWith(isSubmitting: false, isSuccess: false));
+        print("ERROR submit: $e");
+        emit(state.copyWith(
+          isSubmitting: false,
+          isSuccess: false,
+          error: e.toString(),
+        ));
       }
     });
   }

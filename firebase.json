@@ -1,1 +1,41 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"serlok-app-customer","appId":"1:172571543645:android:cf865c38f1d2f43a8925b4","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"serlok-app-customer","appId":"1:172571543645:ios:0ef8bd044ef2b3408925b4","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"serlok-app-customer","appId":"1:172571543645:ios:0ef8bd044ef2b3408925b4","uploadDebugSymbols":false,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"serlok-app-customer","configurations":{"android":"1:172571543645:android:cf865c38f1d2f43a8925b4","ios":"1:172571543645:ios:0ef8bd044ef2b3408925b4","macos":"1:172571543645:ios:0ef8bd044ef2b3408925b4","web":"1:172571543645:web:64a39431c668a0148925b4","windows":"1:172571543645:web:d2a821cae4db65d28925b4"}}}}}}
+{
+    "flutter":{
+        "platforms":{
+            "android":{
+                "default":{
+                    "projectId":"serlok-app-customer",
+                    "appId":"1:172571543645:android:cf865c38f1d2f43a8925b4",
+                    "fileOutput":"android/app/google-services.json"
+                }
+            },
+            "ios":{
+                "default":{
+                    "projectId":"serlok-app-customer",
+                    "appId":"1:172571543645:ios:0ef8bd044ef2b3408925b4",
+                    "uploadDebugSymbols":false,
+                    "fileOutput":"ios/Runner/GoogleService-Info.plist"
+                }
+            },
+            "macos":{
+                "default":{
+                    "projectId":"serlok-app-customer",
+                    "appId":"1:172571543645:ios:0ef8bd044ef2b3408925b4",
+                    "uploadDebugSymbols":false,
+                    "fileOutput":"macos/Runner/GoogleService-Info.plist"
+                }
+            },
+            "dart":{
+                "lib/firebase_options.dart":{
+                    "projectId":"serlok-app-customer",
+                    "configurations":{
+                        "android":"1:172571543645:android:cf865c38f1d2f43a8925b4",
+                        "ios":"1:172571543645:ios:0ef8bd044ef2b3408925b4",
+                        "macos":"1:172571543645:ios:0ef8bd044ef2b3408925b4",
+                        "web":"1:172571543645:web:64a39431c668a0148925b4",
+                        "windows":"1:172571543645:web:d2a821cae4db65d28925b4"
+                    }
+                }
+            }
+        }
+    }
+}
