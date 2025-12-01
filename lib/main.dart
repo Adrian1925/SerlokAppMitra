@@ -5,6 +5,8 @@ import 'package:serlok_mitra/firebase_options.dart';
 import 'core/helper/permission_helper.dart';
 import 'data/service/auth_service.dart';
 import 'data/service/profile_service.dart';
+import 'data/service/vhicle_service.dart';
+import 'presentation/bloc/add_vhicle/add_vehicle_bloc.dart';
 import 'presentation/bloc/auth/auth_bloc.dart';
 import 'presentation/bloc/profile/profile_bloc.dart';
 import 'package:serlok_mitra/core/router/app_router.dart';
@@ -17,6 +19,7 @@ Future<void> main() async {
       providers: [
         BlocProvider(create: (_) => AuthBloc(AuthService())),
         BlocProvider(create: (_) => ProfileBloc(ProfileService())..add(FetchProfile())),
+         BlocProvider(create: (_) => VehicleBloc(VhicleService())),
       ],
       child: const MyApp(),
     ),

@@ -14,8 +14,14 @@ class ProfileService {
     if (token == null) {
       throw "Token tidak ditemukan. Silakan login ulang.";
     }
+    // final url = Uri.parse("${ApiConstants.baseUrl}/profile/me");
+    // fake api for testing ----------------------------------------
+    final url = "https://mocki.io/v1/abe289c9-710f-4d9c-bb93-01209da70ebc"; // (active account) 
+    // final url = "https://mocki.io/v1/a32fd0d9-72a8-42e5-9fd0-0056e7745e48"; // (pending account)
+    // final url = "https://mocki.io/v1/a32fd0d9-72a8-42e5-9fd0-0056e7745e48"; // (active with wallet balance < 10000 account)
+    
     final response = await http.get(
-      Uri.parse("${ApiConstants.baseUrl}/profile/me"),
+      Uri.parse(url),
       headers: {
         "Authorization": "Bearer $token",
       },
@@ -139,4 +145,30 @@ class ProfileService {
       "body": jsonDecode(response.body),
     };
   }
+
+  Future<Map<String, dynamic>> changeState(String state) async {
+  final token = await secureStorage.read(key: "token");
+  if (token == null) throw "Token tidak ditemukan. Silakan login ulang.";
+
+  final request = http.MultipartRequest(
+    'POST',
+    Uri.parse("${ApiConstants.baseUrl}/profile/change-state"),
+  );
+
+  request.headers['Authorization'] = "Bearer $token";
+
+  request.fields['state'] = state; 
+
+  final response = await request.send();
+  final resBody = await response.stream.bytesToString();
+
+  print("STATUS change-state: ${response.statusCode}");
+  print("RESPON change-state: $resBody");
+
+  return {
+    "status": response.statusCode,
+    "body": jsonDecode(resBody),
+  };
+}
+
 }
