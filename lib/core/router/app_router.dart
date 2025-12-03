@@ -8,6 +8,7 @@ import 'package:serlok_mitra/presentation/page/wallet/wallet_va_webview_page.dar
 import 'package:serlok_mitra/presentation/page/wallet/wallet_virtual_account_page.dart';
 
 import '../../presentation/page/auth/register_page.dart';
+import '../../presentation/page/main_page.dart';
 import '../../presentation/page/splash/splash.dart';
 import '../../presentation/page/vhicle/add_vehicle.dart';
 import '../../presentation/page/vhicle/add_vehicle_intro.dart';
@@ -59,7 +60,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LoginPage());
 
       case '/vehicle':
-        return MaterialPageRoute(builder: (context) => VhiclePage(),);
+        return MaterialPageRoute(
+          builder: (_) => const MainTabPage(initialIndex: 1),
+        );
       
       case '/addVhicleIntro':
         return MaterialPageRoute(builder: (context) => IntroTambahKendaraanPage(),);

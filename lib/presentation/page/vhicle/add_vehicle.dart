@@ -20,9 +20,7 @@ class TambahKendaraanPage extends StatefulWidget {
 class _TambahKendaraanPageState extends State<TambahKendaraanPage> {
   final PageController _controller = PageController();
   final TextEditingController namaKendaraanC = TextEditingController();
-  final TextEditingController catatanC = TextEditingController(
-      text:
-          "Kendaraan selalu terawat, AC Dingin, Bensin irit, cocok untuk sewa dalam atau luar kota.");
+  final TextEditingController catatanC = TextEditingController(text: "Kendaraan selalu terawat, AC Dingin, Bensin irit, cocok untuk sewa dalam atau luar kota.");
 
   XFile? fotoUtama;
   XFile? fotoStnk;
