@@ -18,7 +18,7 @@ Widget buildVehicleCard({
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
+              child: Image.network(
                 imagePath,
                 width: 120,
                 height: 70,

@@ -1,27 +1,35 @@
-import '../../../../data/model/vehicle_model.dart';
+import 'package:equatable/equatable.dart';
+import '../../../data/model/vehicle_model.dart';
 
-class VehicleState {
-  final VehicleModel data;
+class VehicleState extends Equatable {
+  final List<VehicleModel> vehicles;
   final bool isLoading;
   final bool isSuccess;
+  final String message;
 
-  VehicleState({
-    required this.data,
+  const VehicleState({
+    this.vehicles = const [],
     this.isLoading = false,
     this.isSuccess = false,
+    this.message = "",
   });
 
   VehicleState copyWith({
-    VehicleModel? data,
+    List<VehicleModel>? vehicles,
     bool? isLoading,
     bool? isSuccess,
+    String? message,
   }) {
     return VehicleState(
-      data: data ?? this.data,
+      vehicles: vehicles ?? this.vehicles,
       isLoading: isLoading ?? this.isLoading,
       isSuccess: isSuccess ?? this.isSuccess,
+      message: message ?? this.message,
     );
   }
+
+  @override
+  List<Object?> get props => [vehicles, isLoading, isSuccess, message];
 }
 
 

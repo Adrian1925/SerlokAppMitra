@@ -1,9 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:serlok_mitra/core/constants/responsive.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../../data/model/vhicle_add_model.dart';
+import '../../bloc/add_vhicle/add_vehicle_bloc.dart';
+import '../../bloc/add_vhicle/add_vehicle_event.dart';
+import '../../bloc/add_vhicle/add_vehicle_state.dart';
 
 class TambahKendaraanPage extends StatefulWidget {
   const TambahKendaraanPage({super.key});
@@ -15,7 +20,7 @@ class TambahKendaraanPage extends StatefulWidget {
 class _TambahKendaraanPageState extends State<TambahKendaraanPage> {
   final PageController _controller = PageController();
   final TextEditingController namaKendaraanC = TextEditingController();
-  final TextEditingController catatanC = TextEditingController();
+  final TextEditingController catatanC = TextEditingController(text: "Kendaraan selalu terawat, AC Dingin, Bensin irit, cocok untuk sewa dalam atau luar kota.");
 
   XFile? fotoUtama;
   XFile? fotoStnk;
@@ -38,7 +43,31 @@ class _TambahKendaraanPageState extends State<TambahKendaraanPage> {
 
   Future<XFile?> pickImage(ImageSource src) async {
     final ImagePicker picker = ImagePicker();
-    return await picker.pickImage(source: src);
+    final XFile? file = await picker.pickImage(source: src);
+
+    if (file == null) return null;
+
+    final ext = file.name.split('.').last.toLowerCase();
+    const allowed = ["jpg", "jpeg", "png"];
+
+    if (!allowed.contains(ext)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Format tidak didukung. Gunakan jpg, jpeg, atau png."),
+        ),
+      );
+      return null;
+    }
+
+    final size = await file.length(); 
+    if (size > 5 * 1024 * 1024) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Ukuran file maksimal 5MB")),
+      );
+      return null;
+    }
+
+    return file;
   }
 
   Widget buildUploadItem({
@@ -142,7 +171,6 @@ class _TambahKendaraanPageState extends State<TambahKendaraanPage> {
             ),
           ),
           const SizedBox(height: 24),
-
           Text("Jumlah Seat / Tempat Duduk", style: AppTextStyles.medium15),
           const SizedBox(height: 12),
           Row(
@@ -158,23 +186,20 @@ class _TambahKendaraanPageState extends State<TambahKendaraanPage> {
                     color: selected ? AppColors.primary : AppColors.white,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: selected
-                          ? AppColors.primary
-                          : AppColors.dividerGray,
+                      color:
+                          selected ? AppColors.primary : AppColors.dividerGray,
                     ),
                   ),
                   child: Text(
                     "$seat Seat",
                     style: selected
-                        ? AppTextStyles.semi14
-                            .copyWith(color: AppColors.white)
+                        ? AppTextStyles.semi14.copyWith(color: AppColors.white)
                         : AppTextStyles.semi14,
                   ),
                 ),
               );
             }).toList(),
           ),
-
           const SizedBox(height: 24),
           Text("Transmisi", style: AppTextStyles.medium15),
           const SizedBox(height: 12),
@@ -191,23 +216,20 @@ class _TambahKendaraanPageState extends State<TambahKendaraanPage> {
                     color: selected ? AppColors.primary : AppColors.white,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: selected
-                          ? AppColors.primary
-                          : AppColors.dividerGray,
+                      color:
+                          selected ? AppColors.primary : AppColors.dividerGray,
                     ),
                   ),
                   child: Text(
                     t,
                     style: selected
-                        ? AppTextStyles.semi14
-                            .copyWith(color: AppColors.white)
+                        ? AppTextStyles.semi14.copyWith(color: AppColors.white)
                         : AppTextStyles.semi14,
                   ),
                 ),
               );
             }).toList(),
           ),
-
           const SizedBox(height: 24),
           Text("Bahan Bakar", style: AppTextStyles.medium15),
           const SizedBox(height: 12),
@@ -224,16 +246,14 @@ class _TambahKendaraanPageState extends State<TambahKendaraanPage> {
                     color: selected ? AppColors.primary : AppColors.white,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: selected
-                          ? AppColors.primary
-                          : AppColors.dividerGray,
+                      color:
+                          selected ? AppColors.primary : AppColors.dividerGray,
                     ),
                   ),
                   child: Text(
                     b,
                     style: selected
-                        ? AppTextStyles.semi14
-                            .copyWith(color: AppColors.white)
+                        ? AppTextStyles.semi14.copyWith(color: AppColors.white)
                         : AppTextStyles.semi14,
                   ),
                 ),
@@ -369,7 +389,9 @@ class _TambahKendaraanPageState extends State<TambahKendaraanPage> {
           const SizedBox(height: 16),
           Text("Catatan:", style: AppTextStyles.medium15),
           Text(
-            catatanC.text.isEmpty ? "-" : catatanC.text,
+            catatanC.text.isEmpty
+                ? "Kendaraan selalu terawat, AC Dingin, Bensin irit, cocok untuk sewa dalam atau luar kota."
+                : catatanC.text,
             style: AppTextStyles.regular15,
           ),
         ],
@@ -408,58 +430,114 @@ class _TambahKendaraanPageState extends State<TambahKendaraanPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.close, color: AppColors.black),
-          onPressed: () {
+    return BlocListener<VehicleBloc, VehicleState>(
+      listener: (context, state) {
+        if (state.isLoading) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const Center(child: CircularProgressIndicator()),
+          );
+        } else {
+          Navigator.of(context, rootNavigator: true).pop(); 
+          if (state.isSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Berhasil menambah kendaraan")),
+            );
             Navigator.pop(context);
-          },
+          } else if (state.message.isNotEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.white,
+        appBar: AppBar(
+          backgroundColor: AppColors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.close, color: AppColors.black),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          centerTitle: true,
+          title: Text(
+            "Informasi Kendaraan",
+            style: AppTextStyles.semi16.copyWith(color: AppColors.black),
+          ),
         ),
-        centerTitle: true,
-        title: Text(
-          "Informasi Kendaraan",
-          style: AppTextStyles.semi16.copyWith(color: AppColors.black),
+        body: Column(
+          children: [
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: buildProgress(),
+            ),
+            Expanded(
+              child: PageView(
+                controller: _controller,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  step1(),
+                  step2(),
+                  step3(),
+                  step4Confirm(),
+                ],
+              ),
+            ),
+          ],
         ),
-      ),
-      body: Column(
-        children: [
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: buildProgress(),
-          ),
-          Expanded(
-            child: PageView(
-              controller: _controller,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                step1(),
-                step2(),
-                step3(),
-                step4Confirm(),
-              ],
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(20),
+          child: ElevatedButton(
+            onPressed: () {
+              if (currentStep < 2) {
+                nextPage();
+              } else {
+                final data = VhicleAddRequest(
+                  name: namaKendaraanC.text,
+                  seats: selectedSeat,
+                  transmission: transmisi,
+                  fuelType: bahanBakar,
+                  features: selectedFasilitas,
+                  description: catatanC.text.isEmpty
+                      ? "Kendaraan selalu terawat, AC Dingin, Bensin irit, cocok untuk sewa dalam atau luar kota."
+                      : catatanC.text,
+                );
+
+                if (fotoUtama == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Foto utama harus diisi")),
+                  );
+                  return;
+                }
+
+                context.read<VehicleBloc>().add(
+                      AddVehicleEvent(
+                        data: data,
+                        fotoUtama: File(fotoUtama!.path),
+                        fotoStnk:
+                            fotoStnk != null ? File(fotoStnk!.path) : null,
+                        fotoPajak:
+                            fotoPajak != null ? File(fotoPajak!.path) : null,
+                      ),
+                    );
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              minimumSize: const Size(double.infinity, 52),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20),
-        child: ElevatedButton(
-          onPressed: nextPage,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            minimumSize: const Size(double.infinity, 52),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+            child: Text(
+              currentStep < 2 ? "Selanjutnya" : "Selesai",
+              style: AppTextStyles.semi16,
             ),
-          ),
-          child: Text(
-            currentStep < 2 ? "Selanjutnya" : "Selesai",
-            style: AppTextStyles.semi16,
           ),
         ),
       ),
