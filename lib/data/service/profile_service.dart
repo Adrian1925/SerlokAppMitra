@@ -14,9 +14,9 @@ class ProfileService {
     if (token == null) {
       throw "Token tidak ditemukan. Silakan login ulang.";
     }
-    // final url = Uri.parse("${ApiConstants.baseUrl}/profile/me");
+    final url =("${ApiConstants.baseUrl}/profile/me");
     // fake api for testing ----------------------------------------
-    final url = "https://mocki.io/v1/abe289c9-710f-4d9c-bb93-01209da70ebc"; // (active account) 
+    // final url = "https://mocki.io/v1/abe289c9-710f-4d9c-bb93-01209da70ebc"; // (active account) 
     // final url = "https://mocki.io/v1/a32fd0d9-72a8-42e5-9fd0-0056e7745e48"; // (pending account)
     // final url = "https://mocki.io/v1/a32fd0d9-72a8-42e5-9fd0-0056e7745e48"; // (active with wallet balance < 10000 account)
     
