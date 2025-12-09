@@ -1,10 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import '../../firebase_options.dart';
 
 class FCMService {
   static Future<void> backgroundHandler(RemoteMessage message) async {
-    await Firebase.initializeApp();
-    print("Background message: ${message.messageId}");
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    print("📩 [BG] Message ID: ${message.messageId}");
+    print("📦 [BG] Data: ${message.data}");
   }
 
   static Future<void> initFCM() async {
@@ -16,9 +21,9 @@ class FCMService {
       sound: true,
     );
 
-    print("Permission: ${settings.authorizationStatus}");
+    print("⚙️ Permission: ${settings.authorizationStatus}");
 
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-    print("FCM TOKEN: $fcmToken");
+    final token = await FirebaseMessaging.instance.getToken();
+    print("🎯 FCM TOKEN: $token");
   }
 }
