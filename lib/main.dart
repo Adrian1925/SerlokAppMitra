@@ -30,10 +30,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  await LocalNotificationService.initLocalNotification();
   await FCMService.initFCM();
-  NotificationHandler.setupNotificationListener();
 
   await DashBubble.instance.requestOverlayPermission();
   await DashBubble.instance.requestPostNotificationsPermission();
@@ -48,6 +45,10 @@ class AppProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      LocalNotificationService.initLocalNotification();
+      NotificationHandler.setupNotificationListener();
+    });
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => AuthBloc(AuthService())),

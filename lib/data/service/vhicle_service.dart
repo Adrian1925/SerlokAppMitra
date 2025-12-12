@@ -84,7 +84,10 @@ class VhicleService {
 
     final response = await http.get(
       url,
-      headers: {"Authorization": "Bearer $token"},
+      headers: {
+        "Authorization": "Bearer $token",
+        'User-Agent': 'PostmanRuntime/7.32.2',
+      },
     );
 
     final body = jsonDecode(response.body);
