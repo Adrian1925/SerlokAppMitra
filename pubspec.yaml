@@ -53,7 +53,6 @@ dependencies:
   firebase_analytics: ^12.0.4
   flutter_local_notifications: ^19.5.0
   dash_bubble: ^2.0.0
-  flutter_overlay_window: ^0.5.0
 
 flutter_native_splash:
   image: assets/images/logo.png
@@ -129,6 +128,9 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+dependency_overrides:
+  dash_bubble:
+    path: packages/dash_bubble
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

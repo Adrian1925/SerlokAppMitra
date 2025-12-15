@@ -26,7 +26,6 @@ class LocalNotificationService {
         ?.createNotificationChannel(channel);
   }
 
-  // Normalisasi nama dari FCM
   static String normalizeSoundName(String raw) {
     return raw
         .toLowerCase()
@@ -41,15 +40,12 @@ class LocalNotificationService {
     required String body,
     String? soundNameFromFCM,
   }) async {
-    // Normalisasi → contoh "incoming_sound.mp3" jadi "incoming_sound"
     final normalized = normalizeSoundName(soundNameFromFCM ?? "");
 
-    // Karena hanya ada 1 sound
     const soundMap = {
       "incoming_sound": "incoming_sound",
     };
 
-    // Ambil sound final
     final selectedSound = soundMap[normalized];
 
     final androidDetails = AndroidNotificationDetails(
@@ -61,7 +57,7 @@ class LocalNotificationService {
       playSound: true,
       sound: selectedSound != null
           ? RawResourceAndroidNotificationSound(selectedSound)
-          : null, // default sound jika null
+          : null, 
     );
 
     final platformDetails = NotificationDetails(android: androidDetails);

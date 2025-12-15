@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../main_page.dart';
 
 import '../../../core/constants/app_colors.dart';
 
@@ -17,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
   Timer? _timer;
+  final _secureStorage = const FlutterSecureStorage();
 
   @override
   void initState() {
@@ -41,17 +44,29 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    _timer = Timer(const Duration(seconds: 3), () {
-      if (mounted) {
-        Navigator.pushReplacementNamed(context, '/login');
+    _timer = Timer(const Duration(seconds: 3), () async {
+      if (!mounted) return;
+      try {
+        final token = await _secureStorage.read(key: 'token');
+        if (token != null && token.isNotEmpty) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const MainTabPage()),
+          );
+          return;
+        }
+      } catch (e) {
+        print('Error membaca token: $e');
       }
+
+      Navigator.pushReplacementNamed(context, '/login');
     });
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    _timer?.cancel(); // penting agar tidak leak!
+    _timer?.cancel();
     super.dispose();
   }
 

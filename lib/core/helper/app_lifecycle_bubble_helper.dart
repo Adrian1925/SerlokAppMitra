@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:dash_bubble/dash_bubble.dart';
@@ -11,6 +12,7 @@ class AppLifecycleBubble with WidgetsBindingObserver {
   AppLifecycleBubble._();
 
   bool isBubbleActive = false;
+  Timer? _closeTimer;
 
   void start() {
     WidgetsBinding.instance.addObserver(this);
@@ -22,32 +24,40 @@ class AppLifecycleBubble with WidgetsBindingObserver {
 
     switch (state) {
 
-      case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
+      case AppLifecycleState.inactive:
       case AppLifecycleState.hidden:
 
-        if (!isBubbleActive) {
-          final permitted = await DashBubble.instance.hasOverlayPermission();
-          if (permitted) {
-            isBubbleActive = true;
-            await DashBubble.instance.startBubble(
-              bubbleOptions: BubbleOptions(
-                bubbleIcon: "icon",
-                enableClose: true,
-              ),
-              notificationOptions: NotificationOptions(
-                title: "Serlok Mitra",
-                body: "Bubble aktif",
-              ),
-              onTap: () async {
-                await platform.invokeMethod("openApp");
-              },
-            );
+        _closeTimer?.cancel();
+
+        _closeTimer = Timer(const Duration(seconds: 1), () async {
+
+          if (!isBubbleActive) {
+            final permitted = await DashBubble.instance.hasOverlayPermission();
+            if (permitted) {
+              isBubbleActive = true;
+              await DashBubble.instance.startBubble(
+                bubbleOptions: BubbleOptions(
+                  bubbleIcon: "icon",
+                  enableClose: false, 
+                ),
+                notificationOptions: NotificationOptions(
+                  title: "Serlok Mitra",
+                  body: "Klik untuk membuka kembali",
+                ),
+                onTap: () async {
+                  await platform.invokeMethod("openApp");
+                },
+              );
+            }
           }
-        }
+        });
+
         break;
 
       case AppLifecycleState.resumed:
+        _closeTimer?.cancel();
+
         if (isBubbleActive) {
           isBubbleActive = false;
           await DashBubble.instance.stopBubble();
